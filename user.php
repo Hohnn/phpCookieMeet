@@ -18,7 +18,7 @@
     <title>Profil</title>
 </head>
 <body>
-    <?= include('navbar') ?>
+    <?= include('navbar.php') ?>
     <div class="container">
         <h1 class="text-center">Profil</h1>
         <div class="row">
