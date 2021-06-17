@@ -9,10 +9,12 @@ function matchFound($match)
 {
     ?>
     <div style="border: 1px solid black">
-        <div><?=$match->firstname?></div>
+        <img src="<?=getUserImage($match->picture)?>" alt="<?=$match->picture?>">
         <div><?=$match->lastname?></div>
+        <div><?=$match->firstname?></div>
         <div><?=$match->age?></div>
-        <img src="<?=getUserImage($match->picture)?>" alt="">
+        <div><?=$match->zipcode?></div>
+        <div><?=$match->description?></div>
     </div>
     <?php
 }
@@ -23,10 +25,9 @@ function getContent()
         $members = file_get_contents("./assets/members.json");
         $list = json_decode($members)->members;
         foreach ($list as $member) {
-            if ($member->gender == $_COOKIE["searchGender"]) {
+            if ($member->gender == strtolower($_COOKIE["searchGender"])) {
                 matchFound($member);
             }
-
         }
     } else {
         header("Location: ./index.php");
