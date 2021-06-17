@@ -16,12 +16,12 @@ function mailExist($element, $array){ //compart le mail avec les mails existant 
 }
 
 $name = htmlspecialchars($_POST['name'] ?? 'Vide');
-$firstname = htmlspecialchars($_POST['firstname'] ?? 'Vide') ;
-$age = htmlspecialchars($_POST['age'] ?? 'Vide') ;
-$gender = htmlspecialchars($_POST['gender'] ?? 'Vide') ;
-$zipCode = htmlspecialchars($_POST['zipCode'] ?? 'Vide') ;
-$email = htmlspecialchars($_POST['email'] ?? 'Vide') ;
-$searchGender = htmlspecialchars($_POST['searchGender'] ?? 'Vide') ;
+$firstname = htmlspecialchars($_POST['firstname'] ?? 'Vide');
+$age = htmlspecialchars($_POST['age'] ?? 'Vide');
+$gender = htmlspecialchars($_POST['gender'] ?? 'Vide');
+$zipCode = htmlspecialchars($_POST['zipCode'] ?? 'Vide');
+$email = htmlspecialchars($_POST['email'] ?? 'Vide');
+$searchGender = htmlspecialchars($_POST['searchGender'] ?? 'Vide');
 $regexName = "/^[a-z ,.'-]+$/i";
 $regexAge = "/^\d{1,2}$/";
 $regexZipCode = "/^\d{5}$/";
@@ -61,7 +61,7 @@ if (isset($_POST['submit'])) { //si submit est dans le post
         $classMail = 'is-invalid';
     }
     if ($count == 0) { // le conteur est à 0
-        header("Location: developpers.php?searchGender=$searchGender"); // change de page avec le bonne url pour récupéré en GET
+        header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
     }
 }
 
@@ -77,7 +77,7 @@ if (!empty($_POST)) {
 }
 
 if (isset($_COOKIE["name"])) {
-    header("Location: developpers.php?searchGender=$searchGender"); // change de page avec le bonne url pour récupéré en GET
+    header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
     exit(); // stop le script
 }
 
