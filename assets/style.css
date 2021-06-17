@@ -45,3 +45,18 @@ textarea {
     max-width: 400px;
     text-align: center;
 }
+
+.match-card-body {
+    position: relative;
+}
+
+.like {
+    position: absolute;
+    font-size: 2rem;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.like:hover {
+    color: red;
+}
