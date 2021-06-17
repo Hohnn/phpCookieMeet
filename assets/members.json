@@ -1,0 +1,27 @@
+{
+    "members": [ 
+        {
+            "id": "001",
+            "lastname": "DOE",
+            "firstname": "John",
+            "age": "33ans",
+            "gender": "homme",
+            "mail": "mail@mail.com",
+            "zipcode": "76600",
+            "picture": "monimage.jpg",
+            "description": "Je suis un homme qui ..." 
+        },
+        {
+            "id": "001",
+            "lastname": "DOE",
+            "firstname": "John",
+            "age": "33ans",
+            "gender": "homme",
+            "mail": "mail@mail.com",
+            "zipcode": "76600",
+            "picture": "monimage.jpg",
+            "description": "Je suis un homme qui ..." 
+        }
+    ] 
+    
+}
