@@ -13,7 +13,7 @@ function likeMatch($liked)
 function matchFound($match, $liked = false)
 {
     ?>
-    <div class="col" style="">
+    <div class="col">
         <div class="match-card card mx-auto mx-md-0 h-100">
             <div class="d-flex flex-column position-relative">
                 <img src="<?=getUserImage($match->picture)?>" alt="<?=$match->picture?>">
@@ -63,20 +63,34 @@ function handleCookie($cookieName)
 
 function getContent()
 {
+    $pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
+
     // filtre homme / femme trouvés
-    if (!empty($_COOKIE) && isset($_COOKIE["searchGender"])) {
-        // pour le case d'un submit "like"
-        $likedInput = handleCookie("like");
-        $members = file_get_contents("./assets/members.json");
-        $list = json_decode($members)->members;
-        foreach ($list as $member) {
-            if ($member->gender == strtolower($_COOKIE["searchGender"])) {
-                $inArray = $likedInput ? in_array($member->id, json_decode($likedInput)) : $likedInput;
-                matchFound($member, $inArray);
+    if (!empty($_COOKIE)) {
+        $allCookiesAreSet = true; # par défaut tous les cookies
+
+        foreach ($pushToCookie as $cookieName) {
+            if (!isset($_COOKIE[$cookieName])) {
+                $allCookiesAreSet = false;
             }
         }
-    } else {
-        header("Location: ./index.php");
+
+        if ($allCookiesAreSet) {
+            // pour le case d'un submit "like"
+            $likedInput = handleCookie("like");
+            $members = file_get_contents("./assets/members.json");
+            $list = json_decode($members)->members;
+            foreach ($list as $member) {
+                if ($member->gender == strtolower($_COOKIE["searchGender"])) {
+                    $inArray = $likedInput ? in_array($member->id, json_decode($likedInput)) : $likedInput;
+                    matchFound($member, $inArray);
+                }
+            }
+
+        } else {
+            header("Location: ./index.php");
+            exit();
+        }
     }
 }
 
