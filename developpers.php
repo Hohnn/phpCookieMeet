@@ -13,46 +13,49 @@ function likeMatch($liked)
 function matchFound($match, $liked = false)
 {
     ?>
-    <div class="col" style="width: 18rem;">
-        <div class="match-card card mx-auto  mx-md-0 h-100">
-            <img src="<?=getUserImage($match->picture)?>" alt="<?=$match->picture?>">
-            <div class="match-card-body card-body">
-                <div class="card-text"><?=$match->lastname?></div>
-                <div class="card-text"><?=$match->firstname?></div>
-                <div class="card-text"><?=$match->age?></div>
-                <div class="card-text"><?=$match->zipcode?></div>
-                <div class="card-text"><?=$match->description?></div>
+    <div class="col" style="">
+        <div class="match-card card mx-auto mx-md-0 h-100">
+            <div class="d-flex flex-column position-relative">
+                <img src="<?=getUserImage($match->picture)?>" alt="<?=$match->picture?>">
                 <form action="./developpers.php" method="POST">
                     <button type="submit" name="like" value="<?=$match->id?>" class="border-0 bg-transparent d-block ms-auto">
                         <i class="like bi bi-heart<?=likeMatch($liked)?>"></i>
                     </button>
                 </form>
             </div>
+            <div class="match-card-body card-body">
+                <div class="card-text"><?=$match->lastname?></div>
+                <div class="card-text"><?=$match->firstname?></div>
+                <div class="card-text"><?=$match->age?> ans</div>
+                <div class="card-text"><?=$match->zipcode?></div>
+                <div class="card-text"><?=$match->description?></div>
+            </div>
         </div>
     </div>
     <?php
 }
 
-function handleCookie($cookieName) {
+function handleCookie($cookieName)
+{
     $cookieContentEncode = false;
-    if(isset($_POST[$cookieName])) {
+    if (isset($_POST[$cookieName])) {
         $time = time() + 24 * 60 * 60;
-        if(isset($_COOKIE[$cookieName])) {
+        if (isset($_COOKIE[$cookieName])) {
             $cookieContent = json_decode($_COOKIE[$cookieName]);
             $toLikeId = $_POST[$cookieName];
-            if(($id = array_search($toLikeId, $cookieContent)) !== false) {
+            if (($id = array_search($toLikeId, $cookieContent)) !== false) {
                 array_splice($cookieContent, $id, 1);
             } else {
                 $cookieContent[] = $toLikeId;
             }
             $cookieContentEncode = json_encode($cookieContent);
             setcookie($cookieName, $cookieContentEncode, $time);
-    
+
         } else {
             $cookieContentEncode = json_encode([$_POST[$cookieName]]);
             setcookie($cookieName, $cookieContentEncode, $time);
         }
-    } elseif(isset($_COOKIE[$cookieName])) {
+    } elseif (isset($_COOKIE[$cookieName])) {
         $cookieContentEncode = $_COOKIE[$cookieName];
     }
     return $cookieContentEncode;
@@ -91,7 +94,7 @@ function getContent()
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-    <?= include("navbar.php") ?>
+    <?=include "navbar.php"?>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php getContent()?>
