@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
 .accueil {
     display: flex;
     justify-content: center;
@@ -11,7 +17,7 @@
     height: 100%;
     color: white;
 }
-.accueil::before {
+.accueil::before, .user::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -23,11 +29,6 @@
     background-position: bottom;
 
 }
-
-.accueil label, h1 {
-    text-shadow: rgba(0, 0, 0, 0.616) 1px 1px 3px;
-}
-
 
 .myForm {
     width: 100%;
@@ -145,3 +146,30 @@ label {
 .form-select {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
+
+.form-text {
+    color: #fe0d34;
+}
+
+.user {
+    color: white;
+}
+
+
+.user form a {
+    background-color: #fe0d34;
+    border: none;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+.user ul {
+    background-color: rgba(0, 0, 0, 0.486);
+    border-radius: 1rem;
+    list-style: none;
+    max-width: 400px;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+
+
+

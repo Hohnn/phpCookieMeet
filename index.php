@@ -125,51 +125,51 @@ if (!empty($_COOKIE)) {
 <body>
     <h1 class="mb-5">BIENVENUE</h1>
     <div class="myForm">
-        <form action="index.php" method="post" novalidate>
-        <div class="mb-3">
-            <label for="name" class="form-label">Nom</label>
-            <input type="text" class="form-control <?=$className ?? ''?>" id="name" name="name" required value="<?=$_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
-            <div id="emailHelp" class="form-text"><?=$errorName ?? ''?></div> <!-- affiche le message d'erreur -->
-        </div>
-        <div class="mb-3">
-            <label for="firstname" class="form-label">Prénom</label>
-            <input type="text" class="form-control <?=$classFirstname ?? ''?>" id="firstname" name="firstname" required value="<?=$_POST['firstname'] ?? '';?>">
-            <div id="emailHelp" class="form-text"><?=$errorFirstname ?? ''?></div>
-        </div>
-        <div class="mb-3">
-            <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control <?=$classAge ?? ''?>" id="age" name="age" required value="<?=$_POST['age'] ?? '';?>">
-            <div id="emailHelp" class="form-text"><?=$errorAge ?? ''?></div>
-        </div>
-        <div class="mb-3">
-            <label for="gender" class="form-label">Genre</label>
-            <select id="gender" class="form-select <?=$classGender ?? ''?>" name="gender" required>
-                <option <?=$selectedGender == -1 ? "selected" : ""?> disabled>Veuillez choisir</option>
-                <option <?=$selectedGender == 0 ? "selected" : ""?>>Homme</option>
-                <option <?=$selectedGender == 1 ? "selected" : ""?>>Femme</option>
-            </select>
-            <div id="emailHelp" class="form-text"><?=$errorGender ?? ''?></div>
-        </div>
-        <div class="mb-3">
-            <label for="zipCode" class="form-label">Code Postal</label>
-            <input type="text" class="form-control <?=$classZipCode ?? ''?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?=$_POST['zipCode'] ?? '';?>">
-            <div id="emailHelp" class="form-text"><?=$errorZipCode ?? ''?></div>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Adresse mail</label>
-            <input type="email" class="form-control <?=$classMail ?? ''?>" id="email" name="email" aria-describedby="emailHelp" required value="<?=$_POST['email'] ?? '';?>">
-            <div id="emailHelp" class="form-text"><?=$errorMail ?? ''?></div>
-        </div>
-        <div class="mb-3">
-            <label for="searchGender" class="form-label">Recherche</label>
-            <select id="searchGender" class="form-select <?=$classSearchGender ?? ''?>" name="searchGender" required>
-                <option <?=$selectedSearchGender == -1 ? "selected" : ""?> disabled>Veuillez choisir</option>
-                <option <?=$selectedSearchGender == 0 ? "selected" : ""?>>Homme</option>
-                <option <?=$selectedSearchGender == 1 ? "selected" : ""?>>Femme</option>
-            </select>
-            <div id="emailHelp" class="form-text"><?=$errorSearchGender ?? ''?></div>
-        </div>
-        <button type="submit" class="btn btn-primary" id="btn" name="submit">Rencontrer nos célibataire</button>
+        <form action="index.php" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nom</label>
+                <input type="text" class="form-control <?=$className ?? ''?>" id="name" name="name" required value="<?=$_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
+                <div id="emailHelp" class="form-text"><?=$errorName ?? ''?></div> <!-- affiche le message d'erreur -->
+            </div>
+            <div class="mb-3">
+                <label for="firstname" class="form-label">Prénom</label>
+                <input type="text" class="form-control <?=$classFirstname ?? ''?>" id="firstname" name="firstname" required value="<?=$_POST['firstname'] ?? '';?>">
+                <div id="emailHelp" class="form-text"><?=$errorFirstname ?? ''?></div>
+            </div>
+            <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control <?=$classAge ?? ''?>" id="age" name="age" required value="<?=$_POST['age'] ?? '';?>">
+                <div id="emailHelp" class="form-text"><?=$errorAge ?? ''?></div>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Genre</label>
+                <select id="gender" class="form-select <?=$classGender ?? ''?>" name="gender" required>
+                    <option <?=$selectedGender == -1 ? "selected" : ""?> disabled>Vous êtes...</option>
+                    <option <?=$selectedGender == 0 ? "selected" : ""?>>Homme</option>
+                    <option <?=$selectedGender == 1 ? "selected" : ""?>>Femme</option>
+                </select>
+                <div id="emailHelp" class="form-text"><?=$errorGender ?? ''?></div>
+            </div>
+            <div class="mb-3">
+                <label for="zipCode" class="form-label">Code Postal</label>
+                <input type="text" class="form-control <?=$classZipCode ?? ''?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?=$_POST['zipCode'] ?? '';?>">
+                <div id="emailHelp" class="form-text"><?=$errorZipCode ?? ''?></div>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Adresse mail</label>
+                <input type="email" class="form-control <?=$classMail ?? ''?>" id="email" name="email" aria-describedby="emailHelp" required value="<?=$_POST['email'] ?? '';?>">
+                <div id="emailHelp" class="form-text"><?=$errorMail ?? ''?></div>
+            </div>
+            <div class="mb-3">
+                <label for="searchGender" class="form-label">Recherche</label>
+                <select id="searchGender" class="form-select <?=$classSearchGender ?? ''?>" name="searchGender" required>
+                    <option <?=$selectedSearchGender == -1 ? "selected" : ""?> disabled>Veuillez choisir</option>
+                    <option <?=$selectedSearchGender == 0 ? "selected" : ""?>>Homme</option>
+                    <option <?=$selectedSearchGender == 1 ? "selected" : ""?>>Femme</option>
+                </select>
+                <div id="emailHelp" class="form-text"><?=$errorSearchGender ?? ''?></div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn" name="submit">Rencontrer nos célibataire</button>
         </form>
     </div>
 </body>
