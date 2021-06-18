@@ -1,7 +1,5 @@
 <?php
-
-function isValid($pattern, $subject)
-{ //vérifie la regex puis renvoi vrai ou faux
+function isValid($pattern ,$subject){   //vérifie la regex puis renvoi vrai ou faux
     if (preg_match($pattern, $subject)) {
         return true;
     } else {
@@ -9,11 +7,10 @@ function isValid($pattern, $subject)
     }
 }
 
-function mailExist($element, $array)
-{ //compart le mail avec les mails existant et renvoi vrai si elle n'est pas trouvé
+function mailExist($element, $array){ //compart le mail avec les mails existant et renvoi vrai si elle n'est pas trouvé
     if (in_array($element, $array)) {
         return false;
-    } else {
+    } else { 
         return true;
     }
 }
@@ -31,10 +28,6 @@ $regexZipCode = "/^\d{5}$/";
 $regexMail = "/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/";
 $regexPassword = "/^(?=.*?[A-Z])(?=.*?[a-z]).{5,}$/";
 $mailArray = ['julien@gmail.com', 'paul@gmail.com', 'habib@hotmail.fr'];
-
-$allowedGender = ["homme", "femme"];
-$selectedGender = -1;
-$selectedSearchGender = -1;
 
 if (isset($_POST['submit'])) { //si submit est dans le post
     $count = 0;
@@ -67,47 +60,26 @@ if (isset($_POST['submit'])) { //si submit est dans le post
         $count++;
         $classMail = 'is-invalid';
     }
-    if (($genderId = array_search(strtolower($_POST["gender"] ?? ""), $allowedGender)) !== false) { # on a un match
-    $selectedGender = $genderId;
-    } else {
-        $count++;
-        $classGender = "is-invalid";
-    }
-    if (($searchGenderId = array_search(strtolower($_POST["searchGender"] ?? ""), $allowedGender)) !== false) { # on a un match
-    $selectedSearchGender = $searchGenderId;
-    } else {
-        $count++;
-        $classSearchGender = "is-invalid";
-    }
     if ($count == 0) { // le conteur est à 0
         header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
-    }
-}
+        $pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
 
-$pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
-
-if (!empty($_POST)) {
-    foreach ($pushToCookie as $key) {
-        if (isset($_POST[$key])) {
-            setcookie($key, $_POST[$key], time() + 24 * 60 * 60);
+        if (!empty($_POST)) {
+            foreach($pushToCookie as $key){
+                $value = $_POST[$key];
+                if (isset($value)) {
+                    setcookie($key, $value, time() + 24 * 60 * 60);
+                }
+            }
         }
     }
 }
 
-if (!empty($_COOKIE)) {
-    $redirect = true;
 
-    foreach ($pushToCookie as $cookieName) {
-        if (!isset($_COOKIE[$cookieName])) {
-            $redirect = false;
-        }
 
-    }
-
-    if ($redirect) {
-        header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
-        exit(); // stop le script
-    }
+if (isset($_COOKIE["name"])) {
+    header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
+    exit(); // stop le script
 }
 
 ?>
@@ -122,54 +94,61 @@ if (!empty($_COOKIE)) {
     <link rel="stylesheet" href="./assets/style.css">
     <title>Formulaire</title>
 </head>
-<body>
-    <h1 class="mb-5">BIENVENUE</h1>
+<body class="accueil flex-column flex-md-row ">
+    
+    <div class="brand w-100">
+    <img src="https://lamanu.fr/wp-content/uploads/2020/02/logo-couleur-paysage-1024x409.png" alt="">
+    <h1 class="my-4">BIENVENUE</h1>
+    <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo numquam et nulla quam quia eum quasi magni optio quibusdam velit.</p>
+
+    </div>
+    
     <div class="myForm">
         <form action="index.php" method="post">
-            <div class="mb-3">
-                <label for="name" class="form-label">Nom</label>
-                <input type="text" class="form-control <?=$className ?? ''?>" id="name" name="name" required value="<?=$_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
-                <div id="emailHelp" class="form-text"><?=$errorName ?? ''?></div> <!-- affiche le message d'erreur -->
-            </div>
-            <div class="mb-3">
-                <label for="firstname" class="form-label">Prénom</label>
-                <input type="text" class="form-control <?=$classFirstname ?? ''?>" id="firstname" name="firstname" required value="<?=$_POST['firstname'] ?? '';?>">
-                <div id="emailHelp" class="form-text"><?=$errorFirstname ?? ''?></div>
-            </div>
-            <div class="mb-3">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control <?=$classAge ?? ''?>" id="age" name="age" required value="<?=$_POST['age'] ?? '';?>">
-                <div id="emailHelp" class="form-text"><?=$errorAge ?? ''?></div>
-            </div>
-            <div class="mb-3">
-                <label for="gender" class="form-label">Genre</label>
-                <select id="gender" class="form-select <?=$classGender ?? ''?>" name="gender" required>
-                    <option <?=$selectedGender == -1 ? "selected" : ""?> disabled>Vous êtes...</option>
-                    <option <?=$selectedGender == 0 ? "selected" : ""?>>Homme</option>
-                    <option <?=$selectedGender == 1 ? "selected" : ""?>>Femme</option>
-                </select>
-                <div id="emailHelp" class="form-text"><?=$errorGender ?? ''?></div>
-            </div>
-            <div class="mb-3">
-                <label for="zipCode" class="form-label">Code Postal</label>
-                <input type="text" class="form-control <?=$classZipCode ?? ''?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?=$_POST['zipCode'] ?? '';?>">
-                <div id="emailHelp" class="form-text"><?=$errorZipCode ?? ''?></div>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Adresse mail</label>
-                <input type="email" class="form-control <?=$classMail ?? ''?>" id="email" name="email" aria-describedby="emailHelp" required value="<?=$_POST['email'] ?? '';?>">
-                <div id="emailHelp" class="form-text"><?=$errorMail ?? ''?></div>
-            </div>
-            <div class="mb-3">
-                <label for="searchGender" class="form-label">Recherche</label>
-                <select id="searchGender" class="form-select <?=$classSearchGender ?? ''?>" name="searchGender" required>
-                    <option <?=$selectedSearchGender == -1 ? "selected" : ""?> disabled>Veuillez choisir</option>
-                    <option <?=$selectedSearchGender == 0 ? "selected" : ""?>>Homme</option>
-                    <option <?=$selectedSearchGender == 1 ? "selected" : ""?>>Femme</option>
-                </select>
-                <div id="emailHelp" class="form-text"><?=$errorSearchGender ?? ''?></div>
-            </div>
-            <button type="submit" class="btn btn-primary" id="btn" name="submit">Rencontrer nos célibataire</button>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nom</label>
+            <input placeholder="Votre nom..." type="text" class="form-control <?= $className ?? '' ?>" id="name" name="name" required value="<?= $_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
+            <div id="emailHelp" class="form-text"><?= $errorName ?? '' ?></div> <!-- affiche le message d'erreur -->
+        </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+            <input placeholder="Votre prénom..." type="text" class="form-control <?= $classFirstname ?? '' ?>" id="firstname" name="firstname" required value="<?= $_POST['firstname'] ?? '';?>">
+            <div id="emailHelp" class="form-text"><?= $errorFirstname ?? '' ?></div>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input placeholder="Votre age..." type="number" class="form-control <?= $classAge ?? '' ?>" id="age" name="age" required value="<?= $_POST['age'] ?? '';?>">
+            <div id="emailHelp" class="form-text"><?= $errorAge ?? '' ?></div>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Genre</label>
+            <select id="gender" class="form-select <?= $classGender ?? '' ?>" name="gender" required value="<?= $_POST['gender'] ?? '';?>">
+                <option selected disabled>Vous êtes...</option>
+                <option>Homme</option>
+                <option>Femme</option>
+            </select>
+            <div id="emailHelp" class="form-text"><?= $errorGender ?? '' ?></div>
+        </div>
+        <div class="mb-3">
+            <label for="zipCode" class="form-label">Code Postal</label>
+            <input placeholder="Code postal..." type="text" class="form-control <?= $classZipCode ?? '' ?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?= $_POST['zipCode'] ?? '';?>">
+            <div id="emailHelp" class="form-text"><?= $errorZipCode ?? '' ?></div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Adresse mail</label>
+            <input placeholder="Adresse mail..." type="email" class="form-control <?= $classMail ?? '' ?>" id="email" name="email" aria-describedby="emailHelp" required value="<?= $_POST['email'] ?? '';?>">
+            <div id="emailHelp" class="form-text"><?= $errorMail ?? '' ?></div>
+        </div>
+        <div class="mb-3">
+            <label for="searchGender" class="form-label">Recherche</label>
+            <select id="searchGender" class="form-select <?= $classSearchGender ?? '' ?>" name="searchGender" required>
+                <option selected disabled>Vous recherchez...</option>
+                <option>Homme</option>
+                <option>Femme</option>
+            </select>
+            <div id="emailHelp" class="form-text"><?= $errorSearchGender ?? '' ?></div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btn" name="submit">Rencontrer nos célibataire</button>
         </form>
     </div>
 </body>

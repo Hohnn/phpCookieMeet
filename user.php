@@ -1,27 +1,11 @@
 <?php
-
-$pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
-
-$redirect = false;
-
-foreach ($pushToCookie as $cookieName) {
-    if (!isset($_COOKIE[$cookieName])) {
-        $redirect = true;
+    if (isset($_POST["delete"])) {
+        foreach($_COOKIE as $key => $cookie){
+            setcookie($key, "", 0);
+        }
+        header("Location: index.php"); // change de page avec le bonne url pour récupéré en GET
+        exit();
     }
-}
-
-if ($redirect) {
-    header("Location: index.php");
-    exit();
-}
-
-if (isset($_POST["delete"])) {
-    foreach ($_COOKIE as $key => $cookie) {
-        setcookie($key, "", 0);
-    }
-    header("Location: index.php"); // change de page avec le bonne url pour récupéré en GET
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -34,38 +18,33 @@ if (isset($_POST["delete"])) {
     <link rel="stylesheet" href="./assets/style.css">
     <title>Profil</title>
 </head>
-<<<<<<< HEAD
-<body>
-    <?=include 'navbar.php'?>
-=======
 <body class="user">
     <?= include('navbar.php') ?>
->>>>>>> f5cb9fb8312f281470fdd77e60b24f270e2eb559
     <div class="container">
         <h1 class="my-5 fs-2">Mon Profil</h1>
         <div class="row">
             <div class="col">
                 <ul>
                     <li>
-                        <p>Nom : <?=$_COOKIE["name"]?></p>
+                        <p>Nom : <?=  $_COOKIE["name"] ?></p>
                     </li>
                     <li>
-                        <p>Prénom : <?=$_COOKIE["firstname"]?></p>
+                        <p>Prénom : <?=  $_COOKIE["firstname"] ?></p>
                     </li>
                     <li>
-                        <p>Age : <?=$_COOKIE["age"]?></p>
+                        <p>Age : <?=  $_COOKIE["age"] ?></p>
                     </li>
                     <li>
-                        <p>Genre : <?=$_COOKIE["gender"]?></p>
+                        <p>Genre : <?=  $_COOKIE["gender"] ?></p>
                     </li>
                     <li>
-                        <p>Code postal : <?=$_COOKIE["zipCode"]?></p>
+                        <p>Code postal : <?=  $_COOKIE["zipCode"] ?></p>
                     </li>
                     <li>
-                        <p>Adresse mail : <?=$_COOKIE["email"]?></p>
+                        <p>Adresse mail : <?=  $_COOKIE["email"] ?></p>
                     </li>
                     <li>
-                        <p>Recherche : <?=$_COOKIE["searchGender"]?></p>
+                        <p>Recherche : <?=  $_COOKIE["searchGender"] ?></p>
                     </li>
                 </ul>
                 <form class="mt-5" action="user.php" method="post">
