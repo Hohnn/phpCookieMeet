@@ -62,19 +62,20 @@ if (isset($_POST['submit'])) { //si submit est dans le post
     }
     if ($count == 0) { // le conteur est à 0
         header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
-    }
-}
+        $pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
 
-$pushToCookie = ['name', 'firstname', 'age', 'gender', 'zipCode', 'email', 'searchGender'];
-
-if (!empty($_POST)) {
-    foreach($pushToCookie as $key){
-        $value = $_POST[$key];
-        if (isset($value)) {
-            setcookie($key, $value, time() + 24 * 60 * 60);
+        if (!empty($_POST)) {
+            foreach($pushToCookie as $key){
+                $value = $_POST[$key];
+                if (isset($value)) {
+                    setcookie($key, $value, time() + 24 * 60 * 60);
+                }
+            }
         }
     }
 }
+
+
 
 if (isset($_COOKIE["name"])) {
     header("Location: developpers.php"); // change de page avec le bonne url pour récupéré en GET
@@ -121,7 +122,7 @@ if (isset($_COOKIE["name"])) {
         </div>
         <div class="mb-3">
             <label for="gender" class="form-label">Genre</label>
-            <select id="gender" class="form-select <?= $classGender ?? '' ?>" name="gender" required>
+            <select id="gender" class="form-select <?= $classGender ?? '' ?>" name="gender" required value="<?= $_POST['gender'] ?? '';?>">
                 <option selected disabled>Vous êtes...</option>
                 <option>Homme</option>
                 <option>Femme</option>

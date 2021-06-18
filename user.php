@@ -15,12 +15,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Profil</title>
 </head>
-<body>
+<body class="user">
     <?= include('navbar.php') ?>
     <div class="container">
-        <h1 class="text-center">Profil</h1>
+        <h1 class="my-5 fs-2">Mon Profil</h1>
         <div class="row">
             <div class="col">
                 <ul>
@@ -46,10 +47,10 @@
                         <p>Recherche : <?=  $_COOKIE["searchGender"] ?></p>
                     </li>
                 </ul>
-                <form action="user.php" method="post">
-                    <button type="submit" class="btn btn-secondary" name="delete">EFFACER</button>
+                <form class="mt-5" action="user.php" method="post">
+                    <button type="submit" class="btn btn-secondary" name="delete">SUPPRIMER LE PROFIL</button>
+                    <a href="https://www.meetic.fr/" class="btn btn-secondary">TAKE MY MONEY</a>
                 </form>
-                <a href="https://www.meetic.fr/" class="btn btn-secondary">TAKE MY MONEY</a>
             </div>
         </div>
     </div>
