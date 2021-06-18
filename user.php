@@ -35,7 +35,7 @@ if (isset($_POST["delete"])) {
     <title>Profil</title>
 </head>
 <body class="user">
-    <?=include 'navbar.php'?>
+    <?php include 'navbar.php'?>
     <div class="container">
         <h1 class="my-5 fs-2">Mon Profil</h1>
         <div class="row">
