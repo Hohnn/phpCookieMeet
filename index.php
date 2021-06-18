@@ -93,29 +93,36 @@ if (isset($_COOKIE["name"])) {
     <link rel="stylesheet" href="./assets/style.css">
     <title>Formulaire</title>
 </head>
-<body>
-    <h1 class="mb-5">BIENVENUE</h1>
+<body class="accueil flex-column flex-md-row ">
+    
+    <div class="brand w-100">
+    <img src="https://lamanu.fr/wp-content/uploads/2020/02/logo-couleur-paysage-1024x409.png" alt="">
+    <h1 class="my-4">BIENVENUE</h1>
+    <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo numquam et nulla quam quia eum quasi magni optio quibusdam velit.</p>
+
+    </div>
+    
     <div class="myForm">
-        <form action="index.php" method="post" novalidate>
+        <form action="index.php" method="post">
         <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
-            <input type="text" class="form-control <?= $className ?? '' ?>" id="name" name="name" required value="<?= $_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
+            <input placeholder="Votre nom..." type="text" class="form-control <?= $className ?? '' ?>" id="name" name="name" required value="<?= $_POST['name'] ?? '';?>" > <!-- si il ya le name dans POSt affiche le sinon met rien -->
             <div id="emailHelp" class="form-text"><?= $errorName ?? '' ?></div> <!-- affiche le message d'erreur -->
         </div>
         <div class="mb-3">
             <label for="firstname" class="form-label">Prénom</label>
-            <input type="text" class="form-control <?= $classFirstname ?? '' ?>" id="firstname" name="firstname" required value="<?= $_POST['firstname'] ?? '';?>">
+            <input placeholder="Votre prénom..." type="text" class="form-control <?= $classFirstname ?? '' ?>" id="firstname" name="firstname" required value="<?= $_POST['firstname'] ?? '';?>">
             <div id="emailHelp" class="form-text"><?= $errorFirstname ?? '' ?></div>
         </div>
         <div class="mb-3">
             <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control <?= $classAge ?? '' ?>" id="age" name="age" required value="<?= $_POST['age'] ?? '';?>">
+            <input placeholder="Votre age..." type="number" class="form-control <?= $classAge ?? '' ?>" id="age" name="age" required value="<?= $_POST['age'] ?? '';?>">
             <div id="emailHelp" class="form-text"><?= $errorAge ?? '' ?></div>
         </div>
         <div class="mb-3">
             <label for="gender" class="form-label">Genre</label>
             <select id="gender" class="form-select <?= $classGender ?? '' ?>" name="gender" required>
-                <option selected disabled>Veuillez choisir</option>
+                <option selected disabled>Vous êtes...</option>
                 <option>Homme</option>
                 <option>Femme</option>
             </select>
@@ -123,18 +130,18 @@ if (isset($_COOKIE["name"])) {
         </div>
         <div class="mb-3">
             <label for="zipCode" class="form-label">Code Postal</label>
-            <input type="text" class="form-control <?= $classZipCode ?? '' ?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?= $_POST['zipCode'] ?? '';?>">
+            <input placeholder="Code postal..." type="text" class="form-control <?= $classZipCode ?? '' ?>" id="zipCode" name="zipCode" aria-describedby="emailHelp" required value="<?= $_POST['zipCode'] ?? '';?>">
             <div id="emailHelp" class="form-text"><?= $errorZipCode ?? '' ?></div>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Adresse mail</label>
-            <input type="email" class="form-control <?= $classMail ?? '' ?>" id="email" name="email" aria-describedby="emailHelp" required value="<?= $_POST['email'] ?? '';?>">
+            <input placeholder="Adresse mail..." type="email" class="form-control <?= $classMail ?? '' ?>" id="email" name="email" aria-describedby="emailHelp" required value="<?= $_POST['email'] ?? '';?>">
             <div id="emailHelp" class="form-text"><?= $errorMail ?? '' ?></div>
         </div>
         <div class="mb-3">
             <label for="searchGender" class="form-label">Recherche</label>
             <select id="searchGender" class="form-select <?= $classSearchGender ?? '' ?>" name="searchGender" required>
-                <option selected disabled>Veuillez choisir</option>
+                <option selected disabled>Vous recherchez...</option>
                 <option>Homme</option>
                 <option>Femme</option>
             </select>
