@@ -35,29 +35,46 @@ function matchFound($match, $liked = false)
     <?php
 }
 
-function handleCookie($cookieName)
+/**
+ * Gère l'ajout de cookies en tableau, s'il est déjà présent il est retiré
+ */
+function handleUpdatableCookieList($cookieName)
 {
+    // variable qui gère la valeur de retour
     $cookieContentEncode = false;
+
+    // si le le nom du cookie à été posté
     if (isset($_POST[$cookieName])) {
+
         $time = time() + 24 * 60 * 60;
+
+        // si le like cookie existe
         if (isset($_COOKIE[$cookieName])) {
+
+            // on décode le cookie
             $cookieContent = json_decode($_COOKIE[$cookieName]);
+            // on stocke l'id de la card sur laquelle on a like
             $toLikeId = $_POST[$cookieName];
+
+            // si l'id est déjà dans l'array on le remplace - ERREUR ??? o_O
             if (($id = array_search($toLikeId, $cookieContent)) !== false) {
                 array_splice($cookieContent, $id, 1);
-            } else {
-                $cookieContent[] = $toLikeId;
+            } else { # sinon on le place dans l'array
+            $cookieContent[] = $toLikeId;
             }
+
+            // on stringify l'array et on le place dans le cookie
             $cookieContentEncode = json_encode($cookieContent);
             setcookie($cookieName, $cookieContentEncode, $time);
 
-        } else {
-            $cookieContentEncode = json_encode([$_POST[$cookieName]]);
+        } else { # si le cookie n'existe pas on le crée
+        $cookieContentEncode = json_encode([$_POST[$cookieName]]);
             setcookie($cookieName, $cookieContentEncode, $time);
         }
-    } elseif (isset($_COOKIE[$cookieName])) {
-        $cookieContentEncode = $_COOKIE[$cookieName];
-    }
+
+    } elseif (isset($_COOKIE[$cookieName])) { # si aucun like a été submit on regarde si le cookie existe
+    $cookieContentEncode = $_COOKIE[$cookieName]; # on paramètre la valeur retour à la valeur du cookie
+}
     return $cookieContentEncode;
 }
 
@@ -76,8 +93,8 @@ function getContent()
         }
 
         if ($allCookiesAreSet) {
-            // pour le case d'un submit "like"
-            $likedInput = handleCookie("like");
+            // pour le cas d'un submit "like"
+            $likedInput = handleUpdatableCookieList("like");
             $members = file_get_contents("./assets/members.json");
             $list = json_decode($members)->members;
             foreach ($list as $member) {
@@ -107,8 +124,8 @@ function getContent()
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/style.css">
 </head>
-<body>
-    <?=include "navbar.php"?>
+<body class="developpers">
+    <?php include "navbar.php"?>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php getContent()?>

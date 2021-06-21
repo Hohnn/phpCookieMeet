@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <h1>bonjour <?=$_COOKIE["firstname"]?></h1>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-4">
+    <div class="container">
+        <h1 class="text-white">bonjour <?=$_COOKIE["firstname"]?></h1>
         <div class="">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
